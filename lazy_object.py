@@ -28,8 +28,11 @@ class lazy_object:
         return getattr(self.obj, name)
 
     def __setattr__(self, name, value):
-        self.initObj()
-        setattr(self.obj, name, value)
+        if name == 'reset' and value == 1 and self.obj is not None:
+            self.__dict__['obj'] = None
+        else:
+            self.initObj()
+            setattr(self.obj, name, value)
 
     def __len__(self):
         self.initObj()
@@ -38,3 +41,4 @@ class lazy_object:
     def __getitem__(self, idx):
         self.initObj()
         return self.obj[idx]
+
