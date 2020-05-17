@@ -41,4 +41,3 @@ class lazy_object:
     def __getitem__(self, idx):
         self.initObj()
         return self.obj[idx]
-
