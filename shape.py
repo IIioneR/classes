@@ -1,3 +1,5 @@
+import math
+
 from math import pi
 
 
@@ -14,7 +16,7 @@ class Shape:
 
 
 class Point(Shape):
-    def __init__(self, coordinate_x=1, coordinate_y=1):
+    def __init__(self, coordinate_x=11, coordinate_y=1):
         super().__init__(coordinate_x, coordinate_y)
 
     def __str__(self):
@@ -27,8 +29,8 @@ class Point(Shape):
 
 class Circle(Shape):
 
-    def __init__(self, radius=10, coordinate_x=1, coordinate_y=10):
-        super().__init__(coordinate_x, coordinate_y)
+    def __init__(self, radius=10):
+        super().__init__(point.coordinate_x, point.coordinate_y)
         self.radius = radius
 
     def __str__(self):
@@ -39,8 +41,12 @@ class Circle(Shape):
         return self.__str__()
 
     def intersect(self):
-        if point.coordinate_x <= self.coordinate_y:
+        result = (((point.coordinate_x-self.coordinate_x)**2) / self.radius**2)\
+                 + (((point.coordinate_y-self.coordinate_y)**2)*self.radius**2)
+        if result < 1:
             return True
+        else:
+            return False
 
 
 point = Point()
