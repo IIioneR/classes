@@ -42,7 +42,7 @@ class Circle(Shape):
 
     def intersect(self):
         result = (((point.coordinate_x-self.coordinate_x)**2) / self.radius**2)\
-                 + (((point.coordinate_y-self.coordinate_y)**2)*self.radius**2)
+                 + (((point.coordinate_y-self.coordinate_y)**2) / self.radius**2)
         if result < 1:
             return True
         else:
