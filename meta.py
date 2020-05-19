@@ -25,7 +25,21 @@ class Typed(Descriptor):
         super().__set__(instance, value)
 
 
-class RangeInteger(Typed):
+class Numeric(Typed):
+    extra_methods = ['gt', 'gte']
+
+    def gt(instance_value, value):
+        return instance_value > value
+
+    def gte(instance_value, value):
+        return instance_value >= value
+
+
+class Integer(Numeric):
+    type_ = int
+
+
+class Range(Descriptor):
 
     def __init__(self, name, min_value, max_value):
         super().__init__(name)
@@ -33,9 +47,13 @@ class RangeInteger(Typed):
         self.max_value = max_value
 
     def __set__(self, instance, value):
-        if value > self.max_value or value < self.min_value or int(value) != value:
+        if value > self.max_value or value < self.min_value:
             raise AttributeError("The value is invalid")
-        self.value = value
+        super().__set__(instance, value)
+
+
+class RangeInteger(Integer, Range):
+    pass
 
 
 class ModelMeta(type):
